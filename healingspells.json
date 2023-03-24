@@ -1,0 +1,52 @@
+{
+  "Light Healing": {
+    "Max healing": {
+      "x": 1.795,
+      "y": 11
+    },
+    "Min healing": {
+      "x": 1.4,
+      "y": 8
+    }
+  },
+  "Intense Healing": {
+    "Max healing": {
+      "x": 5.59,
+      "y": 35
+    },
+    "Min healing": {
+      "x": 3.184,
+      "y": 20
+    }
+  },
+  "Wound Cleansing": {
+    "Max healing": {
+      "x": 7.95,
+      "y": 51
+    },
+    "Min healing": {
+      "x": 4,
+      "y": 25
+    }
+  },
+  "Mass Healing": {
+    "Max healing": {
+      "x": 10.43,
+      "y": 62
+    },
+    "Min healing": {
+      "x": 5.7,
+      "y": 26
+    }
+  },
+  "Ultimate Healing": {
+    "Max healing": {
+      "x": 12.79,
+      "y": 79
+    },
+    "Min healing": {
+      "x": 7.22,
+      "y": 44
+    }
+  }
+}

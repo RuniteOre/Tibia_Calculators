@@ -1,0 +1,72 @@
+{
+  "Light Magic Missile": {
+    "max_damage": {
+      "x": 0.81,
+      "y": 4
+    },
+    "min_damage": {
+      "x": 0.4,
+      "y": 2
+    }
+  },
+  "Heavy Magic Missile/Stalagmite": {
+    "max_damage": {
+      "x": 1.59,
+      "y": 10
+    },
+    "min_damage": {
+      "x": 0.81,
+      "y": 4
+    }
+  },
+  "Icicle/Fireball": {
+    "max_damage": {
+      "x": 3,
+      "y": 18
+    },
+    "min_damage": {
+      "x": 1.81,
+      "y": 10
+    }
+  },
+  "Holy Missile": {
+    "max_damage": {
+      "x": 3.75,
+      "y": 24
+    },
+    "min_damage": {
+      "x": 1.79,
+      "y": 11
+    }
+  },
+  "Sudden Death": {
+    "max_damage": {
+      "x": 7.395,
+      "y": 46
+    },
+    "min_damage": {
+      "x": 4.605,
+      "y": 28
+    }
+  },
+  "Thunderstorm/Stone Shower": {
+    "max_damage": {
+      "x": 2.6,
+      "y": 16
+    },
+    "min_damage": {
+      "x": 1,
+      "y": 6
+    }
+  },
+  "Avalanche/Great Fireball": {
+    "max_damage": {
+      "x": 2.8,
+      "y": 17
+    },
+    "min_damage": {
+      "x": 1.2,
+      "y": 7
+    }
+  }
+}

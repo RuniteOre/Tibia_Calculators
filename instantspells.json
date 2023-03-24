@@ -1,0 +1,42 @@
+{
+  "Strike spells": {
+    "Max damage": {
+      "x": 2.203,
+      "y": 13
+    },
+    "Min damage": {
+      "x": 1.403,
+      "y": 8
+    }
+  },
+  "Divine Missile": {
+    "Max damage": {
+      "x": 3,
+      "y": 18
+    },
+    "Min damage": {
+      "x": 1.79,
+      "y": 11
+    }
+  },
+  "Ice Wave": {
+    "Max damage": {
+      "x": 2,
+      "y": 12
+    },
+    "Min damage": {
+      "x": 0.81,
+      "y": 4
+    }
+  },
+  "Fire Wave": {
+    "Max damage": {
+      "x": 2,
+      "y": 12
+    },
+    "Min damage": {
+      "x": 1.25,
+      "y": 4
+    }
+  }
+}
