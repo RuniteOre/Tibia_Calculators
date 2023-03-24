@@ -20,7 +20,7 @@ def howthefuckdoesmagicwork(level, base_damage, weapon_damage_min, weapon_damage
 		spell_data = json.load(f)[spell_name]
 
 	spell_x = int(float(spell_data["Max damage"]["x"]) - float(spell_data["Min damage"]["x"]))
-	spell_y = int(spell_data["Max damage"]["y"]) - float(spell_data["Min damage"]["y"])
+	spell_y = int(float(spell_data["Max damage"]["y"]) - float(spell_data["Min damage"]["y"]))
 
 	x = int(float(spell_data["Min damage"]["x"]) + spell_x * int(magic_level))
 	y = int(float(spell_data["Min damage"]["y"]) + spell_y * int(magic_level))
@@ -29,6 +29,20 @@ def howthefuckdoesmagicwork(level, base_damage, weapon_damage_min, weapon_damage
 
 	return magic
 
+def expected_healing_values(level, base_damage, magic_level, spell_name):
+	global healing
+	with open("healingspells.json", "r") as f:
+		spell_data = json.load(f)[spell_name]
+
+	spell_x = int(float(spell_data["Max healing"]["x"]) - float(spell_data["Min healing"]["x"]))
+	spell_y = int(float(spell_data["Max healing"]["y"]) - float(spell_data["Min healing"]["y"]))
+
+	x = int(float(spell_data["Min healing"]["x"]) + spell_x * int(magic_level))
+	y = int(float(spell_data["Min healing"]["y"]) + spell_y * int(magic_level))
+
+	healing = math.floor((level * 0.2) + x + y)
+
+	return healing
 #calculating "s" for the base damage formula
 def calculate_s(level):
 #	Till level 500: no change, damage and healing +1 every 5 levels
@@ -77,7 +91,7 @@ def main_menu():
     if choice == "2":
     	expected_melee_damage_menu()
     if choice == "3":
-    	expected_magic_damage_menu()
+    	expected_magic_menu()
 
 #base damage menu
 def base_damage_menu():
@@ -113,23 +127,36 @@ def expected_melee_damage_menu():
 	print(f"\nExpected Damage using Defensive: {defensive}")
 
 #expected magic damage menu
-def expected_magic_damage_menu():
+def expected_magic_menu():
 	print ("#" * 40)
 	print ("#" + " " * 38 + "#")
 	print ("#" + " " * 5 + "Tibia Expected Magic Damage" + " " * 6 + "#")
 	print ("#" + " " * 38 + "#")
 	print ("#" * 40)
-	level = int(input("Enter player level: "))
-	s = calculate_s(level)
-	b = calculate_b(level, s)
-	base_damage = b + (s - 1) * math.ceil(b / 2)
-	print(f"Base Damage: {base_damage}")
-	weapon_damage_min = int(input("Enter minimum weapon damage: "))
-	weapon_damage_max = int(input("Enter maximum weapon damage: "))
-	magic_level = str(input("Enter magic level: "))
-	spell_name = input("Enter spell name: ")
-	howthefuckdoesmagicwork(level, base_damage, weapon_damage_min, weapon_damage_max, magic_level, spell_name)
-	print(f"\nExpected Damage using {spell_name}: {magic}")
+	#healing or damage
+	heal = int(input("Enter 1 for healing, 2 for damage: "))
+	if heal == 1:
+		level = int(input("Enter player level: "))
+		s = calculate_s(level)
+		b = calculate_b(level, s)
+		base_damage = b + (s - 1) * math.ceil(b / 2)
+		print(f"Base Damage: {base_damage}")
+		magic_level = str(input("Enter magic level: "))
+		spell_name = input("Enter spell name: ")
+		expected_healing_values(level, base_damage, magic_level, spell_name)
+		print(f"\nExpected Healing using {spell_name}: {healing}")
+	else:
+		level = int(input("Enter player level: "))
+		s = calculate_s(level)
+		b = calculate_b(level, s)
+		base_damage = b + (s - 1) * math.ceil(b / 2)
+		print(f"Base Damage: {base_damage}")
+		weapon_damage_min = int(input("Enter minimum weapon damage: "))
+		weapon_damage_max = int(input("Enter maximum weapon damage: "))
+		magic_level = str(input("Enter magic level: "))
+		spell_name = input("Enter spell name: ")
+		howthefuckdoesmagicwork(level, base_damage, weapon_damage_min, weapon_damage_max, magic_level, spell_name)
+		print(f"\nExpected Damage using {spell_name}: {magic}")
 
 
 #main function call
