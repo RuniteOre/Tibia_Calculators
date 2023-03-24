@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # TibiaCalcs: A collection of calculators for the MMORPG Tibia
-# Copyright (C) 2019 Mark Steffler
+# Copyright (C) 2023 Mark Steffler
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -98,28 +98,35 @@ def calculate_b(level, s):
 
 #main menu
 def main_menu():
-    print("#" * 40)
-    print("#" + " " * 38 + "#")
-    print("#" + " " * 9 + "Mark's Tibia Calculators" + " " * 5 + "#")
-    print("#" + " " * 38 + "#")
-    print("#" * 40)
-    print("#" + " " * 38 + "#")
-    print("#" + " " * 3 + "1. Base Damage & Healing" + " " * 11 + "#")
-    print("#" + " " * 3 + "2. Melee Expected Damage" + " " * 11 + "#")
-    print("#" + " " * 3 + "3. Magic Expected Damage" + " " * 11 + "#")
-    print("#" + " " * 3 + "4. Magic Training Time" + " " * 13 + "#")
-    print("#" + " " * 38 + "#")
-    print("#" * 40)
-    choice = input("Enter your choice: ")
-    if choice == "1":
-        base_damage_menu()
-    if choice == "2":
-    	expected_melee_damage_menu()
-    if choice == "3":
-    	expected_magic_menu()
-    if choice == "4":
-    	magic_level_training_menu()
+	print("#" * 40)
+	print("#" + " " * 38 + "#")
+	print("#" + " " * 9 + "Mark's Tibia Calculators" + " " * 5 + "#")
+	print("#" + " " * 38 + "#")
+	print("#" * 40)
+	print("#" + " " * 38 + "#")
+	print("#" + " " * 3 + "1. Base Damage & Healing" + " " * 11 + "#")
+	print("#" + " " * 3 + "2. Melee Expected Damage" + " " * 11 + "#")
+	print("#" + " " * 3 + "3. Magic Expected Damage" + " " * 11 + "#")
+	print("#" + " " * 3 + "4. Magic Training Time" + " " * 13 + "#")
+	print("#" + " " * 38 + "#")
+	print("#" * 40)
 
+	while True:
+		choice = input("Enter your choice: ")
+		if choice == "1":
+			base_damage_menu()
+			break
+		elif choice == "2":
+			expected_melee_damage_menu()
+			break
+		elif choice == "3":
+			expected_magic_menu()
+			break
+		elif choice == "4":
+			magic_level_training_menu()
+			break
+		else:
+			print("Invalid choice, try again")
 #base damage menu
 def base_damage_menu():
 	print("#" * 40)
@@ -143,7 +150,12 @@ def expected_melee_damage_menu():
 	print ("#" + " " * 4 + "Offensive, Balanced, Defensive" + " " * 4 + "#")
 	print("#" + " " * 38 + "#")
 	print ("#" * 40)
-	base_damage = int(input("Enter base damage: "))
+	level = int(input("Enter player level: "))
+	s = calculate_s(level)
+	b = calculate_b(level, s)
+	base_damage = b + (s - 1) * math.ceil(b / 2)
+	print(f"\nPlayer Level: {level}")
+	print(f"Base Damage & Healing: {base_damage}")
 	weapon_damage = int(input("Enter weapon damage: "))
 	weapon_skill = int(input("Enter weapon skill level: "))
 	offensive_mode(base_damage, weapon_damage, weapon_skill)
@@ -191,13 +203,19 @@ def magic_level_training_menu():
 	print ("#" + " " * 5 + "Tibia Magic Level Training" + " " * 7 + "#")
 	print ("#" + " " * 38 + "#")
 	print ("#" * 40)
+
+	while True:
+		vocation = input("Enter vocation (Sorcerer, Master Sorcerer, Knight, Elite Knight, Paladin, Royal Paladin): ")
+		if vocation in ["Sorcerer", "Master Sorcerer", "Knight", "Elite Knight", "Paladin", "Royal Paladin"]:
+			break
+		else:
+			print("Invalid vocation. Please enter a valid vocation")
 	#y = a * b(x) * z 
 	#y is time needed to train magic level
 	#b is vocation constant
 	#x is current magic level
 	#z percent to next magic level
 	#a is vocation factor
-	vocation = str(input("Enter vocation: "))
 	if vocation == "Sorcerer" or "Royal Paladin":
 		vocation_factor = 0.67
 		vocation_constant = 1.1
