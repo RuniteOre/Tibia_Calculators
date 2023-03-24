@@ -11,8 +11,6 @@ As of 3/23/2023, the following calculators are available:
 - Expected Magic Damage: Calculate your expected damage for magic attacks.
 
 
-Please note that at this time, the Expected Damage calculator is only available for melee attacks. 
-
 ## Usage
 
 # Expected Magic Damage Calculator
