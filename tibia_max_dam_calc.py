@@ -43,6 +43,12 @@ def expected_healing_values(level, base_damage, magic_level, spell_name):
 	healing = math.floor((level * 0.2) + x + y)
 
 	return healing
+
+def magic_level_training_time(vocationfactor, vocation_constant, magic_level, percent_to_next):
+	global trainingtime
+	trainingtime = vocationfactor * (vocation_constant ** magic_level) * percent_to_next
+	return trainingtime
+
 #calculating "s" for the base damage formula
 def calculate_s(level):
 #	Till level 500: no change, damage and healing +1 every 5 levels
@@ -78,11 +84,9 @@ def main_menu():
     print("#" * 40)
     print("#" + " " * 38 + "#")
     print("#" + " " * 3 + "1. Base Damage & Healing" + " " * 11 + "#")
-    print("#" + " " * 3 + "2. Melee Max Damage" + " " * 16 + "#")
-    print("#" + " " * 3 + "3. Magic Max Damage" + " " * 16 + "#")
-    print("#" + " " * 3 + "4. Mana Training Time" + " " * 14 + "#")
-    print("#" + " " * 3 + "5. Magic Power" + " " * 21 + "#")
-    print("#" + " " * 3 + "6. Speed" + " " * 27 + "#")
+    print("#" + " " * 3 + "2. Melee Expected Damage" + " " * 11 + "#")
+    print("#" + " " * 3 + "3. Magic Expected Damage" + " " * 11 + "#")
+    print("#" + " " * 3 + "4. Magic Training Time" + " " * 13 + "#")
     print("#" + " " * 38 + "#")
     print("#" * 40)
     choice = input("Enter your choice: ")
@@ -92,12 +96,14 @@ def main_menu():
     	expected_melee_damage_menu()
     if choice == "3":
     	expected_magic_menu()
+    if choice == "4":
+    	magic_level_training_menu()
 
 #base damage menu
 def base_damage_menu():
 	print("#" * 40)
 	print("#" + " " * 38 + "#")
-	print("#" + " " * 5 + "Tibia Base Damage & Healing Calc" + " " * 4 + "#")
+	print("#" + " " * 3 + "Tibia Base Damage & Healing Calc" + " " * 3 + "#")
 	print("#" + " " * 38 + "#")
 	print("#" * 40)
 	level = int(input("Enter player level: "))
@@ -157,6 +163,39 @@ def expected_magic_menu():
 		spell_name = input("Enter spell name: ")
 		howthefuckdoesmagicwork(level, base_damage, weapon_damage_min, weapon_damage_max, magic_level, spell_name)
 		print(f"\nExpected Damage using {spell_name}: {magic}")
+
+def magic_level_training_menu():
+	print ("#" * 40)
+	print ("#" + " " * 38 + "#")
+	print ("#" + " " * 5 + "Tibia Magic Level Training" + " " * 7 + "#")
+	print ("#" + " " * 38 + "#")
+	print ("#" * 40)
+	#y = a * b(x) * z 
+	#y is time needed to train magic level
+	#b is vocation constant
+	#x is current magic level
+	#z percent to next magic level
+	#a is vocation factor
+	vocation = str(input("Enter vocation: "))
+	if vocation == "Sorcerer" or "Royal Paladin":
+		vocation_factor = 0.67
+		vocation_constant = 1.1
+	elif vocation == "Master Sorcerer":
+		vocation_factor = 0.44
+		vocation_constant = 1.1
+	elif vocation == "Knight" or "Elite Knight":
+		vocation_factor = 1.33
+		vocation_constant = 3.0
+	elif vocation == "Paladin":
+		vocation_factor = 0.88
+		vocation_constant = 1.4
+	#there is no info on druids, so i'm not including them currently
+	magic_level = int(input("Enter current magic level: "))
+	percent_to_next = float(input("Enter percent to next magic level in decimal form: "))
+	training_time_hours = magic_level_training_time(vocation_factor, vocation_constant, magic_level, percent_to_next)
+	training_time_hours, training_time_minutes = divmod(training_time_hours * 60, 60)
+	print(f"\nTime needed to train to next magic level: {int(training_time_hours)} hours, {int(training_time_minutes)} minutes")
+
 
 
 #main function call
