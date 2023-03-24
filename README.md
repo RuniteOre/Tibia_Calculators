@@ -8,14 +8,27 @@ As of 3/23/2023, the following calculators are available:
 
 - Base Damage: Calculate your base damage for melee attacks.
 - Expected Damage: Calculate your expected damage for melee attacks.
+- Expected Magic Damage: Calculate your expected damage for magic attacks.
+
 
 Please note that at this time, the Expected Damage calculator is only available for melee attacks. 
 
 ## Usage
 
+# Expected Magic Damage Calculator
+
+When using the calculator for expected magic damage, follow the prompts. When asked for the spell name, use the normal english  name of the spell, e.g. "Fire Wave"
+
+For Strike Spells, since they all use the same formulae just input "Strike Spells"
+
+
+
 To use the calculators, simply input the relevant information into the provided fields and click "Calculate." The calculator will then output the result. 
 
 ## Future Development
+
+I will be adding in elemental resistances and other features in the future. 
+
 I will be constantly working to improve and expand the Runite's Tibia Calculators set. In the future, we plan to add additional calculators for healing, speed, and more. 
 
 Thank you for using Runite's Tibia Calculators!
