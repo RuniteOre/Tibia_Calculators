@@ -3,19 +3,18 @@ import json
 
 #different functions for the correct Formulae for Offensive, Balanced, and Defensive Stances
 def offensive_mode(base_damage, weapon_damage, weapon_skill):
-	global offensive
 	offensive = base_damage + math.floor(math.floor(1.2*weapon_damage)*((weapon_skill+4)/28))
+	return offensive
 
 def balanced_mode(base_damage, weapon_damage, weapon_skill):
-	global balanced
 	balanced = base_damage + math.floor(weapon_damage * ((weapon_skill + 4) / 28))
+	return balanced
 
 def defensive_mode(base_damage, weapon_damage, weapon_skill):
-	global defensive
 	defensive = base_damage + math.floor(math.ceil(0.6 * weapon_damage) * (weapon_skill + 4) / 28)
+	return defensive
 
-def howthefuckdoesmagicwork(level, base_damage, weapon_damage_min, weapon_damage_max, magic_level, spell_name):
-	global magic
+def expected_magic_values(level, base_damage, weapon_damage_min, weapon_damage_max, magic_level, spell_name):
 	with open("instantspells.json", "r") as f:
 		spell_data = json.load(f)[spell_name]
 
@@ -30,7 +29,6 @@ def howthefuckdoesmagicwork(level, base_damage, weapon_damage_min, weapon_damage
 	return magic
 
 def expected_healing_values(level, base_damage, magic_level, spell_name):
-	global healing
 	with open("healingspells.json", "r") as f:
 		spell_data = json.load(f)[spell_name]
 
@@ -45,7 +43,6 @@ def expected_healing_values(level, base_damage, magic_level, spell_name):
 	return healing
 
 def magic_level_training_time(vocationfactor, vocation_constant, magic_level, percent_to_next):
-	global trainingtime
 	trainingtime = vocationfactor * (vocation_constant ** magic_level) * percent_to_next
 	return trainingtime
 
@@ -138,11 +135,11 @@ def expected_melee_damage_menu():
 	weapon_damage = int(input("Enter weapon damage: "))
 	weapon_skill = int(input("Enter weapon skill level: "))
 	offensive_mode(base_damage, weapon_damage, weapon_skill)
-	print(f"\nExpected Damage using Offensive: {offensive}")
+	print(f"\nExpected Damage using Offensive:", offensive_mode(base_damage, weapon_damage, weapon_skill))
 	balanced_mode(base_damage, weapon_damage, weapon_skill)
-	print(f"\nExpected Damage using Balanced: {balanced}")
+	print(f"\nExpected Damage using Balanced:", balanced_mode(base_damage, weapon_damage, weapon_skill))
 	defensive_mode(base_damage, weapon_damage, weapon_skill)
-	print(f"\nExpected Damage using Defensive: {defensive}")
+	print(f"\nExpected Damage using Defensive:", defensive_mode(base_damage, weapon_damage, weapon_skill))
 
 #expected magic damage menu
 def expected_magic_menu():
@@ -161,8 +158,7 @@ def expected_magic_menu():
 		print(f"Base Damage: {base_damage}")
 		magic_level = str(input("Enter magic level: "))
 		spell_name = input("Enter spell name: ")
-		expected_healing_values(level, base_damage, magic_level, spell_name)
-		print(f"\nExpected Healing using {spell_name}: {healing}")
+		print(f"\nExpected Healing using {spell_name}:", expected_healing_values(level, base_damage, magic_level, spell_name))
 	else:
 		level = int(input("Enter player level: "))
 		s = calculate_s(level)
@@ -173,8 +169,7 @@ def expected_magic_menu():
 		weapon_damage_max = int(input("Enter maximum weapon damage: "))
 		magic_level = str(input("Enter magic level: "))
 		spell_name = input("Enter spell name: ")
-		howthefuckdoesmagicwork(level, base_damage, weapon_damage_min, weapon_damage_max, magic_level, spell_name)
-		print(f"\nExpected Damage using {spell_name}: {magic}")
+		print(f"Using {spell_name}, expected damage is ", expected_magic_values(level, base_damage, weapon_damage_min, weapon_damage_max, magic_level, spell_name))
 
 def magic_level_training_menu():
 	print ("#" * 40)
