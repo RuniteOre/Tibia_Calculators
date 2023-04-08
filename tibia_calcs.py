@@ -4,7 +4,7 @@
 # TibiaCalcs: A collection of calculators for the MMORPG Tibia
 # Copyright (C) 2023 Mark Steffler
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the  terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
@@ -40,11 +40,11 @@ def howthefuckdoesmagicwork(level, base_damage, weapon_damage_min, weapon_damage
 	with open("instantspells.json", "r") as f:
 		spell_data = json.load(f)[spell_name]
 
-	spell_x = int(float(spell_data["Max damage"]["x"]) - float(spell_data["Min damage"]["x"]))
-	spell_y = int(float(spell_data["Max damage"]["y"]) - float(spell_data["Min damage"]["y"]))
+	spell_x = float(spell_data["Max damage"]["x"]) - float(spell_data["Min damage"]["x"])
+	spell_y = float(spell_data["Max damage"]["y"]) - float(spell_data["Min damage"]["y"])
 
-	x = int(float(spell_data["Min damage"]["x"]) + spell_x * int(magic_level))
-	y = int(float(spell_data["Min damage"]["y"]) + spell_y * int(magic_level))
+	x = float(spell_data["Min damage"]["x"]) + spell_x * int(magic_level)
+	y = float(spell_data["Min damage"]["y"]) + spell_y * int(magic_level)
 
 	magic = math.floor((level * 0.2) + x + y)
 
@@ -55,8 +55,8 @@ def expected_healing_values(level, base_damage, magic_level, spell_name):
 	with open("healingspells.json", "r") as f:
 		spell_data = json.load(f)[spell_name]
 
-	spell_x = int(float(spell_data["Max healing"]["x"]) - float(spell_data["Min healing"]["x"]))
-	spell_y = int(float(spell_data["Max healing"]["y"]) - float(spell_data["Min healing"]["y"]))
+	spell_x = float(spell_data["Max healing"]["x"]) - float(spell_data["Min healing"]["x"])
+	spell_y = float(spell_data["Max healing"]["y"]) - float(spell_data["Min healing"]["y"])
 
 	x = int(float(spell_data["Min healing"]["x"]) + spell_x * int(magic_level))
 	y = int(float(spell_data["Min healing"]["y"]) + spell_y * int(magic_level))
@@ -216,10 +216,10 @@ def magic_level_training_menu():
 	#x is current magic level
 	#z percent to next magic level
 	#a is vocation factor
-	if vocation == "Sorcerer" or "Royal Paladin":
+	if vocation == "Sorcerer" or "Druid" or "Royal Paladin":
 		vocation_factor = 0.67
 		vocation_constant = 1.1
-	elif vocation == "Master Sorcerer":
+	elif vocation == "Master Sorcerer" or "Elder Druid":
 		vocation_factor = 0.44
 		vocation_constant = 1.1
 	elif vocation == "Knight" or "Elite Knight":
@@ -228,7 +228,6 @@ def magic_level_training_menu():
 	elif vocation == "Paladin":
 		vocation_factor = 0.88
 		vocation_constant = 1.4
-	#there is no info on druids, so i'm not including them currently
 	magic_level = int(input("Enter current magic level: "))
 	percent_to_next = float(input("Enter percent to next magic level in decimal form: "))
 	training_time_hours = magic_level_training_time(vocation_factor, vocation_constant, magic_level, percent_to_next)
